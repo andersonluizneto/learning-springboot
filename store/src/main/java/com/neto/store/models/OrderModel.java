@@ -32,13 +32,19 @@ public class OrderModel {
 	private UUID id;
 	
 	@Column(nullable = false)
-	private LocalDateTime orderDate;
+	private LocalDateTime createAt = LocalDateTime.now();
 	
 	@Column(nullable = false)
     private String status;
 	
 	@Column(nullable = false, precision = 10, scale = 2)
 	private BigDecimal total;
+	
+	public BigDecimal getTotalValue() {
+		return this.items.stream()
+				.map(item -> item.getUnityPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
+				.reduce(BigDecimal.ZERO, BigDecimal::add);
+	}
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "customer_id", nullable = false)

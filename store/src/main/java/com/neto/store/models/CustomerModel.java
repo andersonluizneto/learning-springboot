@@ -30,7 +30,7 @@ public class CustomerModel {
 	private String name;
 	
 	@Column(nullable = false, unique = true, length = 14)
-	private String cpf_cnpj;
+	private String cpfCnpj;
 	
 	@Column(nullable = false, unique = true)
 	private String email;
